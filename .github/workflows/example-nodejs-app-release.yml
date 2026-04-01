@@ -8,10 +8,6 @@ name: Release - example-nodejs-app
 on:
   workflow_dispatch:
 
-concurrency:
-  group: release
-  cancel-in-progress: false
-
 permissions:
   contents: write
   issues: write
