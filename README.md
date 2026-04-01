@@ -12,11 +12,8 @@ ci-workflow-templates/
 │   ├── nodejs-app/                      # Node.js application with Docker
 │   ├── python-app/                      # Python application with Docker
 │   └── nodejs-package/                  # Node.js package (npm)
-├── workflow-manifest.json               # AI-agent selection manifest
-├── STRUCTURE.md                        # Detailed architecture documentation
-├── RELEASE-MECHANISMS.md               # Release workflow patterns
-├── SEMANTIC-RELEASE-REPOS.md           # Semantic-release configuration
-└── README.md                           # This file
+├── plans/                               # Implementation plans
+└── README.md                            # This file
 ```
 
 ## Workflow Types
