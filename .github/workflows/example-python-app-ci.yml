@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+  # NOTE: workflow_dispatch is for TESTING PURPOSES ONLY in this template.
+  # Production repositories should only use pull_request trigger.
   workflow_dispatch:
 
 concurrency:
