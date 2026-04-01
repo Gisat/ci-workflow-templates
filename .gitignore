@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# UV
+.python-version

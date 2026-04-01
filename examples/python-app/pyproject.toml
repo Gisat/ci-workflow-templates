@@ -3,7 +3,7 @@ name = "example-python-app"
 version = "1.0.0"
 description = "Example Python application with Docker publishing"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["ruff"]
 
 [project.optional-dependencies]
 dev = []
