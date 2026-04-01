@@ -63,23 +63,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker meta
-        if: ${{ steps.release.outputs.new_release_published == 'true' }}
-        id: meta
-        uses: docker/metadata-action@v6
-        with:
-          images: ghcr.io/${{ github.repository_owner }}/ci-workflow-templates/example-nodejs-app
-          tags: |
-            type=semver,pattern={{version}},value=v${{ steps.release.outputs.new_release_version }},enable=${{ steps.release.outputs.new_release_version != '' }}
-            type=semver,pattern={{major}}.{{minor}},value=v${{ steps.release.outputs.new_release_version }},enable=${{ steps.release.outputs.new_release_version != '' }}
-
       - name: Build and push
         if: ${{ steps.release.outputs.new_release_published == 'true' }}
-        uses: docker/build-push-action@v6
-        with:
-          context: examples/nodejs-app
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        run: |
+          IMAGE_PREFIX=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker buildx build \
+            --tag ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:v${{ steps.release.outputs.new_release_version }} \
+            --tag ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:latest \
+            --push \
+            --cache-from type=gha \
+            --cache-to type=gha,mode=max \
+            examples/nodejs-app

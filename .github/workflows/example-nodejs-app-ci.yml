@@ -49,13 +49,14 @@ jobs:
         uses: docker/setup-buildx-action@v4
 
       - name: Build Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: examples/nodejs-app
-          load: true
-          tags: ghcr.io/${{ github.repository_owner }}/ci-workflow-templates/example-nodejs-app:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        run: |
+          IMAGE_PREFIX=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker buildx build --cache-from type=gha --cache-to type=gha,mode=max \
+            --tag ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:latest --load \
+            --metadata-file /tmp/metadata.json \
+            examples/nodejs-app
 
       - name: Verify image
-        run: docker run --rm ghcr.io/${{ github.repository_owner }}/ci-workflow-templates/example-nodejs-app:latest node --version
+        run: |
+          IMAGE_PREFIX=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker run --rm ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:latest node --version
