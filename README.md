@@ -12,18 +12,17 @@ ci-workflow-templates/
 │   ├── nodejs-app/                      # Node.js application with Docker
 │   ├── python-app/                      # Python application with Docker
 │   └── nodejs-package/                  # Node.js package (npm)
-├── workflow-manifest.json               # AI-agent selection manifest
-├── STRUCTURE.md                        # Detailed architecture documentation
-├── RELEASE-MECHANISMS.md               # Release workflow patterns
-├── SEMANTIC-RELEASE-REPOS.md           # Semantic-release configuration
-└── README.md                           # This file
+├── plans/                               # Implementation plans
+└── README.md                            # This file
 ```
 
 ## Workflow Types
 
 ### CI Workflows
 
-Run on pull request and push to `main`. Validate code quality, run tests, and build artifacts.
+Run on pull request to `main`. Validate code quality, run tests, and build artifacts.
+
+> **Note**: `workflow_dispatch` is included for testing purposes only in this template. Production repositories should only use the `pull_request` trigger.
 
 | Workflow | Purpose |
 |----------|---------|
@@ -33,7 +32,9 @@ Run on pull request and push to `main`. Validate code quality, run tests, and bu
 
 ### Release Workflows
 
-Run on push to `main`. Publish artifacts using semantic-release.
+Run manually via `workflow_dispatch` in this template. Production repositories should trigger on push to `main`.
+
+> **Warning**: This template uses `workflow_dispatch` for manual testing. Production repositories should configure push-based triggers as documented in the workflow comments.
 
 | Workflow | Purpose |
 |----------|---------|
@@ -147,29 +148,29 @@ Expected output: `Hi YOUR_ORG/YOUR_REPO! You've successfully authenticated.`
 
 ### CI Workflows
 
-CI workflows run on:
-- Pull request to `main`
-- Push to `main`
+CI workflows run on pull request to `main` (workflow_dispatch is for testing only in this template).
 
 They validate code, run tests, and build artifacts:
 
 ```bash
-# Triggered automatically on push/PR, no manual steps needed
+# Triggered automatically on pull request, no manual steps needed
 ```
 
 ### Release Workflows
 
-Release workflows run on push to `main`:
+**In this template**: Release workflows are triggered manually via `workflow_dispatch` for testing purposes.
+
+**In production repositories**: Release workflows should run on push to `main`:
 - Analyzes commits using conventional commits
 - Generates changelog
 - Creates GitHub release
 - Publishes artifacts (Docker image or npm package)
 
 ```bash
-# Make a commit with conventional format
+# Production: Make a commit with conventional format
 git commit -m "feat: add new feature"
 
-# Push to main - release workflow triggers automatically
+# Production: Push to main - release workflow triggers automatically
 git push origin main
 ```
 
@@ -235,10 +236,7 @@ All workflows use latest stable versions:
 |--------|---------|
 | `actions/checkout` | v6 |
 | `actions/setup-node` | v6 |
-| `actions/setup-python` | v5 |
 | `docker/setup-buildx-action` | v4 |
 | `docker/login-action` | v4 |
-| `docker/build-push-action` | v6 |
-| `docker/metadata-action` | v6 |
 | `cycjimmy/semantic-release-action` | v6 |
-| `astral-sh/setup-uv` | v5 |
+| `astral-sh/setup-uv` | v7 |

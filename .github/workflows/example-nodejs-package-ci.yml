@@ -4,10 +4,9 @@ on:
   pull_request:
     branches:
       - main
-
-concurrency:
-  group: ci-example-nodejs-package-${{ github.ref }}
-  cancel-in-progress: true
+  # NOTE: workflow_dispatch is for TESTING PURPOSES ONLY in this template.
+  # Production repositories should only use pull_request trigger.
+  workflow_dispatch:
 
 permissions:
   contents: read

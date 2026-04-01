@@ -1,17 +1,12 @@
 name: Release - example-nodejs-package
 
+# NOTE: This workflow uses workflow_dispatch for TESTING PURPOSES ONLY in this template.
+# Production repositories should trigger on push to the default branch instead:
+#   push:
+#     branches:
+#       - main
 on:
   workflow_dispatch:
-    inputs:
-      skip_ci:
-        description: 'Skip CI checks (for testing release)'
-        required: false
-        default: false
-        type: boolean
-
-concurrency:
-  group: release
-  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -36,6 +31,14 @@ jobs:
           git remote set-url origin "git@github.com:${{ github.repository }}.git"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # NOTE: This step is for TESTING PURPOSES ONLY in this template repository.
+      # Production repositories should use push-based triggers with proper commit conventions.
+      # DO NOT implement this pattern in production - it creates unnecessary commits.
+      - name: Force release on manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git commit --allow-empty -m "chore: trigger release!semantic-release:release"
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
