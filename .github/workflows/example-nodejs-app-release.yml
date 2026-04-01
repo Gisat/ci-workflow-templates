@@ -52,22 +52,23 @@ jobs:
 
       - name: Release
         id: release
-        uses: cycjimmy/semantic-release-action@v6
-        with:
-          working_directory: examples/nodejs-app
-          extra_plugins: |
-            @semantic-release/changelog@6.0.3
-            @semantic-release/exec@7.1.0
-            @semantic-release/git@10.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+        working-directory: examples/nodejs-app
+
+      - name: Get version
+        if: ${{ steps.release.conclusion == 'success' }}
+        id: version
+        run: echo "version=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+        working-directory: examples/nodejs-app
 
       - name: Set up Docker Buildx
-        if: ${{ steps.release.outputs.new_release_published == 'true' }}
+        if: ${{ steps.release.conclusion == 'success' }}
         uses: docker/setup-buildx-action@v4
 
       - name: Login to Container Registry
-        if: ${{ steps.release.outputs.new_release_published == 'true' }}
+        if: ${{ steps.release.conclusion == 'success' }}
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
@@ -75,11 +76,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        if: ${{ steps.release.outputs.new_release_published == 'true' }}
+        if: ${{ steps.release.conclusion == 'success' }}
         run: |
           IMAGE_PREFIX=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           docker buildx build \
-            --tag ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:v${{ steps.release.outputs.new_release_version }} \
+            --tag ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:v${{ steps.version.outputs.version }} \
             --tag ghcr.io/${IMAGE_PREFIX}/ci-workflow-templates/example-nodejs-app:latest \
             --push \
             --cache-from type=gha \
