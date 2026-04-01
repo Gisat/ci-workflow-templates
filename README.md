@@ -231,6 +231,8 @@ No secrets required. Uses OpenID Connect (OIDC) for secure, short-lived authenti
 }
 ```
 
+> **Important**: The repository URL in `package.json` must exactly match the case of your GitHub repository name. For example, if your repository is `Gisat/ci-workflow-templates`, the URL must use `Gisat` (capitalized), not `gisat`. npm Trusted Publishing uses OIDC authentication which validates the repository name exactly. A case mismatch will cause `ENONPMTOKEN` errors.
+
 ## Version Requirements
 
 > **Important**: When deploying to production, verify that all actions and semantic-release plugins are using compatible versions. Not all latest versions may be compatible with each other or with your project setup.
