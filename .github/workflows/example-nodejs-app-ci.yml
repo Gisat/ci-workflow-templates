@@ -8,10 +8,6 @@ on:
   # Production repositories should only use pull_request trigger.
   workflow_dispatch:
 
-concurrency:
-  group: ci-example-nodejs-app-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
 
