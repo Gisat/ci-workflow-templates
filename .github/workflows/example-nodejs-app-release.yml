@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'examples/nodejs-app/**'
+      - '.github/workflows/example-nodejs-app-release.yml'
 
 concurrency:
-  group: release-example-nodejs-app
+  group: release
   cancel-in-progress: false
 
 permissions:
