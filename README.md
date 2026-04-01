@@ -50,6 +50,7 @@ The `examples/` directory contains functional projects:
 Node.js application that publishes a Docker image to GHCR.
 ```
 examples/nodejs-app/
+├── .releaserc.json
 ├── Dockerfile
 ├── index.js
 └── package.json
@@ -59,6 +60,7 @@ examples/nodejs-app/
 Python application that publishes a Docker image to GHCR.
 ```
 examples/python-app/
+├── .releaserc.json
 ├── Dockerfile
 ├── app.py
 └── pyproject.toml
@@ -68,6 +70,7 @@ examples/python-app/
 Node.js library published to npm registry.
 ```
 examples/nodejs-package/
+├── .releaserc.json
 ├── package.json
 └── src/index.js
 ```
