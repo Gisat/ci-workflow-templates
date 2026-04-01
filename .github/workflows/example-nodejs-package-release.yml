@@ -1,12 +1,13 @@
 name: Release - example-nodejs-package
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'examples/nodejs-package/**'
-      - '.github/workflows/example-nodejs-package-release.yml'
+  workflow_dispatch:
+    inputs:
+      skip_ci:
+        description: 'Skip CI checks (for testing release)'
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: release

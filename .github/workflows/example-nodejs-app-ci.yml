@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'examples/nodejs-app/**'
-      - '.github/workflows/example-nodejs-app-ci.yml'
 
 concurrency:
   group: ci-example-nodejs-app-${{ github.ref }}

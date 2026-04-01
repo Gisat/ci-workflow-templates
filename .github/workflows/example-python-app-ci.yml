@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'examples/python-app/**'
-      - '.github/workflows/example-python-app-ci.yml'
 
 concurrency:
   group: ci-example-python-app-${{ github.ref }}
