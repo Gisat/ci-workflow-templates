@@ -55,6 +55,10 @@ jobs:
         uses: cycjimmy/semantic-release-action@v6
         with:
           working_directory: examples/nodejs-app
+          extra_plugins: |
+            @semantic-release/changelog@6.0.3
+            @semantic-release/exec@7.1.0
+            @semantic-release/git@10.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
