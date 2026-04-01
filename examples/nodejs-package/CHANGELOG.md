@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/gisat/ci-workflow-templates/compare/v1.0.0...v1.0.1) (2026-04-01)
+
+
+### Bug Fixes
+
+* run CI workflows only on pull_request events ([61de6ed](https://github.com/gisat/ci-workflow-templates/commit/61de6ed4ce338b85bc0175a890079cdbe55270ce))
+
 # 1.0.0 (2026-04-01)
 
 
