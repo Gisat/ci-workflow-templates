@@ -54,8 +54,8 @@ jobs:
         with:
           working_directory: examples/python-app
           extra_plugins: |
-            @semantic-release/changelog@6.0.0
-            @semantic-release/exec@7.0.0
+            @semantic-release/changelog@6.0.3
+            @semantic-release/exec@7.1.0
             @semantic-release/git@10.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

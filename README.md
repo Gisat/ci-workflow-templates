@@ -231,15 +231,31 @@ No secrets required. Uses OpenID Connect (OIDC) for secure, short-lived authenti
 }
 ```
 
-## Action Versions
+## Version Requirements
 
-All workflows use latest stable versions:
+> **Important**: When deploying to production, verify that all actions and semantic-release plugins are using compatible versions. Not all latest versions may be compatible with each other or with your project setup.
 
-| Action | Version |
+### GitHub Actions
+
+| Action | Purpose |
 |--------|---------|
-| `actions/checkout` | v6 |
-| `actions/setup-node` | v6 |
-| `docker/setup-buildx-action` | v4 |
-| `docker/login-action` | v4 |
-| `cycjimmy/semantic-release-action` | v6 |
-| `astral-sh/setup-uv` | v7 |
+| `actions/checkout` | Checks out the repository |
+| `actions/setup-node` | Sets up Node.js environment |
+| `docker/setup-buildx-action` | Enables Docker buildx for multi-platform builds |
+| `docker/login-action` | Authenticates to Docker registries |
+| `cycjimmy/semantic-release-action` | Runs semantic-release for automated versioning |
+| `astral-sh/setup-uv` | Sets up uv package manager for Python |
+
+### Semantic-release Plugins
+
+| Plugin | Purpose |
+|--------|---------|
+| `@semantic-release/commit-analyzer` | Analyzes commits to determine release type |
+| `@semantic-release/release-notes-generator` | Generates release notes |
+| `@semantic-release/changelog` | Creates or updates CHANGELOG.md |
+| `@semantic-release/exec` | Executes custom shell commands during release |
+| `@semantic-release/git` | Commits and pushes release assets to git |
+| `@semantic-release/github` | Publishes GitHub release and comments |
+| `@semantic-release/npm` | Publishes package to npm registry |
+
+> **Note**: For npm Trusted Publisher (OIDC) support, `@semantic-release/npm@13.1.0+` is required. Older versions use `npm whoami` for authentication verification which fails with OIDC tokens.
