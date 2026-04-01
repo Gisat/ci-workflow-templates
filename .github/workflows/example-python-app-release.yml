@@ -6,7 +6,7 @@ on:
       skip_ci:
         description: 'Skip CI checks (for testing release)'
         required: false
-        default: 'false'
+        default: false
         type: boolean
 
 concurrency:
