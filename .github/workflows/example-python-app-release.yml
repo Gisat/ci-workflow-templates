@@ -1,12 +1,13 @@
 name: Release - example-python-app
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'examples/python-app/**'
-      - '.github/workflows/example-python-app-release.yml'
+  workflow_dispatch:
+    inputs:
+      skip_ci:
+        description: 'Skip CI checks (for testing release)'
+        required: false
+        default: 'false'
+        type: boolean
 
 concurrency:
   group: release
