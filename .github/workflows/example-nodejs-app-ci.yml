@@ -53,9 +53,9 @@ jobs:
         with:
           context: examples/nodejs-app
           load: true
-          tags: ghcr.io/${{ github.repository }}/example-nodejs-app:latest
+          tags: ghcr.io/${{ github.repository_owner }}/ci-workflow-templates/example-nodejs-app:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Verify image
-        run: docker run --rm ghcr.io/${{ github.repository }}/example-nodejs-app:latest node --version
+        run: docker run --rm ghcr.io/${{ github.repository_owner }}/ci-workflow-templates/example-nodejs-app:latest node --version

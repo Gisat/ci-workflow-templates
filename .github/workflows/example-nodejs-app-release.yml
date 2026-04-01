@@ -68,7 +68,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ghcr.io/${{ github.repository }}/example-nodejs-app
+          images: ghcr.io/${{ github.repository_owner }}/ci-workflow-templates/example-nodejs-app
           tags: |
             type=semver,pattern={{version}},value=v${{ steps.release.outputs.new_release_version }},enable=${{ steps.release.outputs.new_release_version != '' }}
             type=semver,pattern={{major}}.{{minor}},value=v${{ steps.release.outputs.new_release_version }},enable=${{ steps.release.outputs.new_release_version != '' }}
