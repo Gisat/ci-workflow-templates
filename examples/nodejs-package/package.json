@@ -1,0 +1,34 @@
+{
+  "name": "@gisatcz/example-nodejs-package",
+  "version": "1.0.0",
+  "description": "Example Node.js package with npm publishing",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "mkdir -p dist && cp -r src/* dist/",
+    "test": "echo 'Running tests...' && exit 0",
+    "lint": "echo 'Linting...' && exit 0"
+  },
+  "keywords": [
+    "gisat",
+    "example"
+  ],
+  "author": "Gisat",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gisat/ci-workflow-templates.git"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "example-nodejs-app",
+  "version": "1.0.0",
+  "description": "Example Node.js application with Docker publishing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "echo 'Building application...' && echo 'Build complete'",
+    "test": "echo 'Running tests...' && exit 0",
+    "lint": "echo 'Linting...' && exit 0"
+  },
+  "keywords": ["example"],
+  "author": "",
+  "license": "MIT"
+}

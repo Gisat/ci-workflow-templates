@@ -1,0 +1,59 @@
+name: CI - example-python-app
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-example-python-app-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --frozen
+        working-directory: examples/python-app
+
+      - name: Lint
+        run: uv run --frozen ruff check .
+        working-directory: examples/python-app
+
+      - name: Type check
+        run: uv run --frozen mypy . || true
+        working-directory: examples/python-app
+
+      - name: Test
+        run: uv run --frozen pytest tests/ -v || true
+        working-directory: examples/python-app
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: examples/python-app
+          load: true
+          tags: ghcr.io/${{ github.repository }}/example-python-app:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Verify image
+        run: docker run --rm ghcr.io/${{ github.repository }}/example-python-app:latest python --version
